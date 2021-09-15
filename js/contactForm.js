@@ -1,5 +1,7 @@
+//Atajo el elemento formContact
 let formContact = document.querySelector("#formContact");
 
+//Template check Success
 let templateRegisterSuccess = `
     <h2>Gracias por registrarte</h2>
     <div class="success-checkmark">
@@ -12,8 +14,14 @@ let templateRegisterSuccess = `
     </div>
 `;
 
+//Formulario evento submit
 formContact.addEventListener("submit", (e) => {
   e.preventDefault();
+  //
+  //Validacion regex para que tenga @ si o si
+  let validEmailRegex =
+    /^(([^<>()\[\]\.,;:\s@\”]+(\.[^<>()\[\]\.,;:\s@\”]+)*)|(\”.+\”))@(([^<>()[\]\.,;:\s@\”]+\.)+[^<>()[\]\.,;:\s@\”]{2,})$/;
+  //Obtengo los valores de los inputs
   let $name = document.querySelector("#name").value;
   let $email = document.querySelector("#email").value;
   let $address = document.querySelector("#address").value;
@@ -21,7 +29,9 @@ formContact.addEventListener("submit", (e) => {
   let $buyContainer = document.querySelector("#error__form");
   let $contactForm = document.querySelector("#contact__form");
   $buyContainer.innerHTML = "";
+  //Si no envia los valores desde el formulario correctamente pasa esto.
   if (
+    !validEmailRegex.test($email) ||
     !$name.trim() ||
     !$email.trim() ||
     !$address.trim() ||
@@ -34,6 +44,7 @@ formContact.addEventListener("submit", (e) => {
   `;
   } else {
     $contactForm.innerHTML = templateRegisterSuccess;
+    //Redirecciono al home en 2 segunditos.
     setTimeout(() => {
       window.location.href = "index.html";
     }, 2000);
